@@ -9,7 +9,7 @@ move_partitions <- function(bpan) {
   movement_row <- sample(-1L:1, sum(mpan), replace = TRUE)
   movement_col <- sample(-1L:1, sum(mpan), replace = TRUE)
   
-  #new posions
+  #new positions
   new_pos <- old_pos
   new_pos[, "row"] <- new_pos[, "row"] + movement_row
   new_pos[, "col"] <- new_pos[, "col"] + movement_col
@@ -28,7 +28,7 @@ move_partitions <- function(bpan) {
   res
 }
 
-#our patter
+#our pattern
 pan <- sim_adpcr(m = 200, n = 765, times = 1000, pos_sums = FALSE,
                  n_panels = 1)
 #binarize
