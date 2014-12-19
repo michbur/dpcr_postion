@@ -39,8 +39,6 @@ calc_distances <- function(x) {
 }
 
 #cumulative distribution function of distance
-calc_cdfd <- function(x) {
-  x <- sort(x)
-  mean(sapply(2L:(length(x) - 1), function (i)
-    min(abs(c(x[i] - x[i - 1], x[i] - x[i + 1])))))
-}
+plot(density(calc_distances(c1)))
+#mean nearest neighbour distance
+mean(calc_distances(c1))
