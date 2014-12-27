@@ -55,6 +55,11 @@ mdists <- melt(dists)
 ggplot(mdists, aes(x = value)) + geom_density() + facet_wrap(~ Var2)
 #observation: RC has multimodal distribution
 
+#observation - PC can be detected by simple correlation test
+apply(dists, 2, function(i)
+  cor.test(x = i, y = 1L:flow_vals))
 
-#mean nearest neighbour distance
-mean(calc_distances(c1))
+#does mean nearest neighbour distance does not differentiate between cases?
+apply(dists, 2, mean)
+anova(lm(value ~ Var2, data = mdists[, 2L:3]))
+#not
