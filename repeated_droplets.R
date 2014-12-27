@@ -63,3 +63,10 @@ apply(dists, 2, function(i)
 apply(dists, 2, mean)
 anova(lm(value ~ Var2, data = mdists[, 2L:3]))
 #not
+
+library(multcomp)
+pois_model <- glm(value ~ Var2, data = mdists[, 2L:3], family = poisson)
+multi_comp <- glht(pois_model, linfct = mcp(Var2 = "Tukey"))
+groups <- cld(multi_comp)
+summary(multi_comp)
+#cannot distinguish between URC and RC - it maybe because of the simulation
