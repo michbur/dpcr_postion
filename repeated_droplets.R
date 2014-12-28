@@ -1,5 +1,5 @@
-flow_length <- 15000
-flow_vals <- 1369
+flow_length <- 45
+flow_vals <- 15
 
 #case 1 complete randomness
 c1 <- sample(1L:flow_length, flow_vals)
