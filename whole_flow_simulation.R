@@ -20,16 +20,44 @@ c1 <- sample(whole_flow)
 #case 2 regular clusters
 
 #case 3 unregular clusters - not sure if I implemented it correctly
-binary_flow <- sort(whole_flow) != 0
+binary_flow <- whole_flow != 0
 pos_ids <- sample(which(binary_flow))
 neg_ids <- sample(which(!binary_flow))
 
 c3 <- c()
 first_droplet_pos <- sample(c(TRUE, FALSE), 1)
 if(first_droplet_pos) {
-  c3[1] <- pos_ids[1]
+  c3[1] <- whole_flow[pos_ids[1]]
   pos_ids <- pos_ids[-1]
 } else {
-  c3[1] <- neg_ids[1]
+  c3[1] <- whole_flow[neg_ids[1]]
   neg_ids <- neg_ids[-1]
+}
+
+while(length(c3) < length(whole_flow)) {
+  p_bigger <- sample(75L:100, 1)/100
+  probs_next <- if(c3[length(c3)] != 0) {
+    c(p_bigger, 1 - p_bigger)
+  } else {
+    c(1 - p_bigger, p_bigger)
+  }
+  
+  if(length(pos_ids) != 0 && length(neg_ids) != 0) {
+    next_droplet <- sample(c(TRUE, FALSE), 1, prob = probs_next)
+    if(next_droplet) {
+      c3[length(c3) + 1] <- whole_flow[pos_ids[1]]
+      pos_ids <- pos_ids[-1]
+    } else {
+      c3[length(c3) + 1] <- whole_flow[neg_ids[1]]
+      neg_ids <- neg_ids[-1]
+    }
+  } else {
+    if(length(pos_ids) != 0) {
+      c3[length(c3) + 1] <- whole_flow[pos_ids[1]]
+      pos_ids <- pos_ids[-1]
+    } else {
+      c3[length(c3) + 1] <- whole_flow[neg_ids[1]]
+      neg_ids <- neg_ids[-1]
+    }
+  }
 }
