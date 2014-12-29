@@ -18,6 +18,8 @@ whole_flow <- as.vector(slot(sim_ddpcr(50, 200, 2000, n_exp = 1, dube = TRUE), "
 c1 <- sample(whole_flow)
 
 #case 2 regular clusters
+#NOT DONE!
+
 
 #case 3 unregular clusters - not sure if I implemented it correctly
 binary_flow <- whole_flow != 0
@@ -35,6 +37,8 @@ if(first_droplet_pos) {
 }
 
 while(length(c3) < length(whole_flow)) {
+  #by manipulating these probabilities clusters can be shorter or longer. The more p_bigger
+  #is closer to 0.5, the shorter clusters
   p_bigger <- sample(75L:100, 1)/100
   probs_next <- if(c3[length(c3)] != 0) {
     c(p_bigger, 1 - p_bigger)
