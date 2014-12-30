@@ -8,8 +8,8 @@ whole_flow <- as.vector(slot(sim_ddpcr(8000, 20000, 2000, n_exp = 1, dube = TRUE
 c1 <- sample(whole_flow)
 
 #case 2: regular clusters (RC)
-#NOT DONE!
-
+c2 <- generate_flow(whole_flow, probs_RC)
+#problem - too many positives at the end of flow
 
 #case 3: unregular clusters (URC)
 c3 <- generate_flow(whole_flow, probs_URC)

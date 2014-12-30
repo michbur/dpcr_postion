@@ -41,6 +41,16 @@ generate_flow <- function(in_flow, probs_next) {
   out_flow
 }
 
+
+probs_RC <- function(in_flow, out_flow) {
+  #p_pos (probability of positive droplet) 
+  p_pos <- sin(length(out_flow))
+  p_pos <- ifelse(p_pos < 0, 0, p_pos)
+  c(p_pos, 1 - p_pos)
+}
+
+
+
 probs_URC <- function(in_flow, out_flow) {
   #URC need only out_flow, in_flow is here for sake of compatibility
   #by manipulating these probabilities clusters can be shorter or longer. The more p_bigger
@@ -60,3 +70,4 @@ probs_PC <- function(in_flow, out_flow) {
   #p_pos should be a function of length, on it depend how strong is correlation
   c(p_pos, 1 - p_pos)
 }
+
