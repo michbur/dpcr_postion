@@ -71,3 +71,14 @@ probs_PC <- function(in_flow, out_flow) {
   c(p_pos, 1 - p_pos)
 }
 
+#get distance of nearest neighbour
+calc_distances <- function(x) {
+  x <- sort(x)
+  #1--2 elements
+  c(abs(x[1] - x[2]),
+    #elements in middle
+    sapply(2L:(length(x) - 1), function (i)
+      min(abs(c(x[i] - x[i - 1], x[i] - x[i + 1])))),
+    #n-1--n element
+    abs(x[length(x)] - x[length(x) - 1]))
+}
