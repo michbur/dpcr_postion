@@ -55,7 +55,7 @@ probs_URC <- function(in_flow, out_flow) {
   #URC need only out_flow, in_flow is here for sake of compatibility
   #by manipulating these probabilities clusters can be shorter or longer. The more p_bigger
   #is closer to 0.5, the shorter clusters
-  p_bigger <- sample(75L:100, 1)/100
+  p_bigger <- sample(60L:80, 1)/100
   probs_next <- if(out_flow[length(out_flow)] != 0) {
     c(p_bigger, 1 - p_bigger)
   } else {

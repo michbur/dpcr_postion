@@ -1,7 +1,7 @@
 library(dpcR)
 source("flow_functions.R")
 #attempt 2 - simulate whole flow and reorder droplets to get five cases
-whole_flow <- as.vector(slot(sim_ddpcr(7500, 20000, 2000, n_exp = 1, dube = TRUE), ".Data"))
+whole_flow <- as.vector(slot(sim_ddpcr(75, 200, 2000, n_exp = 1, dube = TRUE), ".Data"))
 
 #case 1: complete randomness (RAND)
 #we dont have to do sample again, but for sake of randomness
@@ -31,14 +31,15 @@ mdists <- melt(dists)
 
 #cumulative distribution function of distance
 ggplot(mdists, aes(x = value)) + geom_density() + facet_wrap(~ Var2)
+ggplot(mdists, aes(x = value, fill = Var2)) + geom_density(alpha = 0.5)
 
 apply(dists, 2, function(i)
   cor.test(x = i, y = 1L:nrow(dists)))
 
-#does mean nearest neighbour distance does not differentiate between cases?
+
 apply(dists, 2, mean)
 anova(lm(value ~ Var2, data = mdists[, 2L:3]))
-#yea!
+
 
 library(multcomp)
 pois_model <- glm(value ~ Var2, data = mdists[, 2L:3], family = poisson)

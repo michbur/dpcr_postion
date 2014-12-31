@@ -1,3 +1,4 @@
+#deprecated, see flow_simulation.R
 flow_length <- 45
 flow_vals <- 15
 
