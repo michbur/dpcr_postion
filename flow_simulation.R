@@ -19,7 +19,9 @@ c3 <- generate_flow(whole_flow, probs_URC)
 c4 <- generate_flow(whole_flow, probs_PC)
 
 
-#issue c3 and c4 leaves long streak of empty droplets at the end. Fix generation.
+#issue c3 and c4 leaves long streak of empty droplets at the end. Fix simulations. This method do
+#not provide stable probability function over all droplets, it depends heavily on proportion 
+#between positive and negative droplets.
 dat <- do.call(cbind, lapply(list(c1, c2, c3, c4), function(i)
   which(i != 0)))
 
