@@ -30,18 +30,16 @@ generate_flow <- function(in_flow, probs_next) {
       }
     } else {
       if(length(pos_ids) != 0) {
-        out_flow[length(out_flow) + 1] <- in_flow[pos_ids[1]]
-        pos_ids <- pos_ids[-1]
+        out_flow <- c(out_flow, in_flow[pos_ids])
       } else {
-        out_flow[length(out_flow) + 1] <- in_flow[neg_ids[1]]
-        neg_ids <- neg_ids[-1]
+        out_flow <- c(out_flow, in_flow[neg_ids])
       }
     }
   }
   out_flow
 }
 
-
+#sinus was chosen, because of it's periodic behavior. any other periodic function will be OK
 probs_RC <- function(in_flow, out_flow) {
   #p_pos (probability of positive droplet) 
   p_pos <- sin(length(out_flow))
@@ -55,7 +53,7 @@ probs_URC <- function(in_flow, out_flow) {
   #URC need only out_flow, in_flow is here for sake of compatibility
   #by manipulating these probabilities clusters can be shorter or longer. The more p_bigger
   #is closer to 0.5, the shorter clusters
-  p_bigger <- sample(60L:80, 1)/100
+  p_bigger <- sample(65L:70, 1)/100
   probs_next <- if(out_flow[length(out_flow)] != 0) {
     c(p_bigger, 1 - p_bigger)
   } else {

@@ -1,7 +1,7 @@
 library(dpcR)
 source("flow_functions.R")
 #attempt 2 - simulate whole flow and reorder droplets to get five cases
-whole_flow <- as.vector(slot(sim_ddpcr(75, 200, 2000, n_exp = 1, dube = TRUE), ".Data"))
+whole_flow <- as.vector(slot(sim_ddpcr(7500, 20000, 2000000, n_exp = 1, dube = TRUE), ".Data"))
 
 #case 1: complete randomness (RAND)
 #we dont have to do sample again, but for sake of randomness
@@ -18,6 +18,8 @@ c3 <- generate_flow(whole_flow, probs_URC)
 #case 4: less probable positive droplet at the end of experiment - position correlation (PC)
 c4 <- generate_flow(whole_flow, probs_PC)
 
+
+#issue c3 and c4 leaves long streak of empty droplets at the end. Fix generation.
 dat <- do.call(cbind, lapply(list(c1, c2, c3, c4), function(i)
   which(i != 0)))
 
